@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Dad</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #ffe6e6, #fff0f5);
+      overflow: hidden;
+      position: relative;
+    }
+
+    #intro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 600px;
+      animation: popIn 1s ease;
+      z-index: 2;
+      position: relative;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .glow {
+      animation: glowPulse 2.5s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { box-shadow: 0 0 20px rgba(195,55,100,0.4); }
+      to { box-shadow: 0 0 40px rgba(195,55,100,0.8); }
+    }
+
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    #blessing {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.95);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+      color: #d2691e;
+      padding: 20px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      background: #ff69b4;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background: red;
+      border-radius: 50% 50% 50% 50%;
+      opacity: 0.8;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); }
+      100% { transform: translateY(-150px) scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="card glow">
+    <h1>Happy Birthday Dad!</h1>
+    <p>Daniel wishes you a day filled with love, joy, and God's blessings.</p>
+    <p>Dear Dad, thank you for always being my guiding light. Your wisdom, love, and faith inspire me every day. May God continue to bless you abundantly with health, happiness, and peace. I love you more than words can express!</p>
+    <button class="btn" onclick="openCard()">Open Card 🎁</button>
+  </div>
+</div>
+
+<div id="blessing">
+  <h2>God Bless You, Dad!</h2>
+</div>
+
+<!-- Balloons -->
+<div id="balloons"></div>
+
+<!-- Sound Effects -->
+<audio id="openSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9d7d30b9a0.mp3" preload="auto"></audio>
+<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2c8e8b7f5d.mp3" preload="auto"></audio>
+<audio id="blessingSound" src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_88d9a8df6a.mp3" preload="auto"></audio>
+
+<script>
+  const openSound = document.getElementById('openSound');
+  const clickSound = document.getElementById('clickSound');
+  const blessingSound = document.getElementById('blessingSound');
+
+  function createBalloons() {
+    const colors = ['#FF5E5E', '#FFB347', '#FFD700', '#7CFC00', '#00BFFF', '#FF69B4'];
+    for(let i = 0; i < 20; i++) {
+      let balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(balloon);
+    }
+  }
+
+  createBalloons();
+
+  function openCard() {
+    document.getElementById('intro').style.display = 'none';
+    openSound.play().catch(e => console.log('Autoplay blocked, click to hear.'));
+    showBlessing();
+  }
+
+  function showBlessing() {
+    blessingSound.play().catch(e => console.log('Autoplay blocked, click to hear.'));
+    const blessingDiv = document.getElementById('blessing');
+    blessingDiv.style.display = 'flex';
+    blessingDiv.classList.add('shake');
+    setTimeout(() => blessingDiv.classList.remove('shake'), 400);
+  }
+</script>
+
+</body>
+</html>
